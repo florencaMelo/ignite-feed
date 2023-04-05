@@ -1,4 +1,5 @@
-import { Trash , ThumbsUp} from '@phosphor-icons/react'
+import { Trash } from '@phosphor-icons/react'
+import { ThumbsUp } from '@phosphor-icons/react'
 import styles from './Comment.module.css'
 
 export function Comment(){
@@ -25,7 +26,7 @@ export function Comment(){
         <footer>
           <button>
             <ThumbsUp />
-            Aplaudor <span>20</span>
+            Aplaudir <span>20</span>
           </button>
         </footer>
       </div>
