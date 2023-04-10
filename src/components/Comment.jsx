@@ -1,11 +1,15 @@
-import { Trash } from '@phosphor-icons/react'
-import { ThumbsUp } from '@phosphor-icons/react'
+import { Trash } from 'phosphor-react'
+import { ThumbsUp } from 'phosphor-react'
+import { Avatar } from './Avatar'
 import styles from './Comment.module.css'
 
 export function Comment(){
   return(
     <div className={styles.comment}>
-      <img src='https://avatars.githubusercontent.com/u/111822968?v=4"' />
+      <Avatar 
+        hasBorder={false}
+        src='https://avatars.githubusercontent.com/u/111822968?v=4'
+       />
 
       <div className={styles.commentBox}>
         <div className={styles.commentContent}>
@@ -24,9 +28,9 @@ export function Comment(){
         </div>
 
         <footer>
-          <button>
+          <button> Aplaudir 
             <ThumbsUp />
-            Aplaudir <span>20</span>
+           <span>20</span>
           </button>
         </footer>
       </div>
