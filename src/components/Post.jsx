@@ -5,10 +5,18 @@ import { Avatar } from './Avatar'
 import { Comment } from './Comment'
 
 import styles from './Post.module.css'
+import { useState } from 'react'
 
+
+// estados = são variáveis que eu quero que o componente monitora, eles são dados com uma lista com dois componentes sempre
 
 export function Post({ author, publishedAt, content }) {
 
+  const [comments, setComments] = useState([
+    'muito bom'
+    // setComments é para adicionar mais um comentário 
+  ]);
+  
   const publishedDateFormmated = format( publishedAt, "dd 'de' LLLL 'às' HH:mm'h'", {
     locale: ptBR,
   } )
@@ -17,6 +25,16 @@ export function Post({ author, publishedAt, content }) {
     locale: ptBR,
     addSuffix: true,
   })
+
+  function handleCreateNewComent(){
+    event.preventDefault
+
+    const newCommentText = event.target.comment.value
+    // isso vai fazer ocm que retorne o que foi digitado pelo o usuário na textarea do forms 
+
+    setComments([...comments, newCommentText]);
+    // ... é um spread operator que lê o valor da variável e copia
+  }
 
   return(
     <article className={styles.post}>
@@ -45,10 +63,11 @@ export function Post({ author, publishedAt, content }) {
        
       </div>
 
-      <form className={styles.commentForm}>
+      <form onSubmit={handleCreateNewComent} className={styles.commentForm}>
         <strong>Deixe seu Feedback</strong>
 
         <textarea 
+          name='comment'
           placeholder='Deixe um comentário'
         />
 
@@ -58,14 +77,11 @@ export function Post({ author, publishedAt, content }) {
       </form>
 
       <div className={styles.commentList}>
-        <Comment/>
-        <Comment/>
-        <Comment/>
-        <Comment/>
-        
+        {comments.map(comment => {
+          return <Comment content={comment} />
+          // o comentário está sendo passado como uma propriedade chamada content (vai mandar o texto do cmentário para dentro da propriedade)
+        })}
       </div>
-
-
     </article>
   )
 }
