@@ -27,13 +27,16 @@ export function Post({ author, publishedAt, content }) {
   })
 
   function handleCreateNewComent(){
-    event.preventDefault
+    event.preventDefault()
 
     const newCommentText = event.target.comment.value
     // isso vai fazer ocm que retorne o que foi digitado pelo o usuário na textarea do forms 
 
     setComments([...comments, newCommentText]);
     // ... é um spread operator que lê o valor da variável e copia
+
+    event.target.comment.value = "";
+    // para limpar a textarea
   }
 
   return(
@@ -85,3 +88,4 @@ export function Post({ author, publishedAt, content }) {
     </article>
   )
 }
+
