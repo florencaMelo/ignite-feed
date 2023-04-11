@@ -3,7 +3,13 @@ import { ThumbsUp } from 'phosphor-react'
 import { Avatar } from './Avatar'
 import styles from './Comment.module.css'
 
-export function Comment({ content }){
+export function Comment({ content, onDeleteComment }){
+
+  function handleDeleteComment() {
+    onDeleteComment(content);
+  }
+  // essa função faz a comunicação entre dois componentes (por meio da propriedade onDeleteComment)
+
   return(
     <div className={styles.comment}>
       <Avatar 

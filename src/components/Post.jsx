@@ -9,6 +9,7 @@ import { useState } from 'react'
 
 
 // estados = são variáveis que eu quero que o componente monitora, eles são dados com uma lista com dois componentes sempre
+// o primeiro componente é uma lista e o outro é uma função
 
 export function Post({ author, publishedAt, content }) {
 
@@ -41,6 +42,16 @@ export function Post({ author, publishedAt, content }) {
     // pega o valor digitado na textara e armazena no estado
   }
 
+  function deleteComment(commmentToDelete) {
+    const commentsWithoutDeletedOne = comments.filter(comment => {
+      return comment != commmentToDelete
+    })
+    // aqui vai criar uma lista a partir da lista (comment já criada), porém removendo um item
+    // imutabilidade: as variáveis não sofrem mutação, nós criamos um novo valor (novo espaço na memória)
+
+    setComments(commentsWithoutDeletedOne);    
+  }
+
   return(
     <article className={styles.post}>
       <header>
@@ -65,7 +76,6 @@ export function Post({ author, publishedAt, content }) {
             return <p key={line.content}><a href='#'></a></p>;
           }
         })}
-       
       </div>
 
       <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
@@ -85,8 +95,15 @@ export function Post({ author, publishedAt, content }) {
 
       <div className={styles.commentList}>
         {comments.map(comment => {
-          return <Comment key={comment} content={comment} />
+          return (
+            <Comment
+               key={comment} 
+               content={comment}
+               onDeleteComment={deleteComment} 
+            />
+          )
           // o comentário está sendo passado como uma propriedade chamada comment (vai mandar o texto do comentário para dentro da propriedade)
+          // deleteComment é uma função que está sendo passada como uma propriedade para ser possível ter a comunicação entre os componentes
         })}
       </div>
     </article>
