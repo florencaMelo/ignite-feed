@@ -19,7 +19,7 @@ export function Comment({ content }){
              <time title='4 de abril de 2022 ' dateTime='2022-04-04 08:13'>Cerca de 2h atrás</time>
             </div>
 
-            <button title='Deletar comentários'>
+            <button onClick={handleDeleteComment} title='Deletar comentários'>
               <Trash size={20} />
             </button>
           </header>
@@ -37,3 +37,5 @@ export function Comment({ content }){
     </div>
   )
 }
+
+// a única forma de voce comunicar um componente com o outro é atraves das PROPRIEDADES, sendo passadas como funções

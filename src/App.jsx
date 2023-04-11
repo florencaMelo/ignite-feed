@@ -40,7 +40,6 @@ const post =[
   }
 ];
 
-
 export function App() {
   return (
     <div>
@@ -54,6 +53,7 @@ export function App() {
           {post.map(post => {
             return(
               <Post
+                key={post.id}
                 author={post.author}
                 content={post.content}
                 publishedAt={post.publishedAt}

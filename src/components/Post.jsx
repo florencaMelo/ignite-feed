@@ -16,7 +16,9 @@ export function Post({ author, publishedAt, content }) {
     'muito bom'
     // setComments é para adicionar mais um comentário 
   ]);
-  
+
+  const [newCommentText, setNewCommentText] = useState('')
+
   const publishedDateFormmated = format( publishedAt, "dd 'de' LLLL 'às' HH:mm'h'", {
     locale: ptBR,
   } )
@@ -26,17 +28,17 @@ export function Post({ author, publishedAt, content }) {
     addSuffix: true,
   })
 
-  function handleCreateNewComent(){
+  function handleCreateNewComment() {
     event.preventDefault()
-
-    const newCommentText = event.target.comment.value
-    // isso vai fazer ocm que retorne o que foi digitado pelo o usuário na textarea do forms 
 
     setComments([...comments, newCommentText]);
     // ... é um spread operator que lê o valor da variável e copia
+    setNewCommentText('')
+  }
 
-    event.target.comment.value = "";
-    // para limpar a textarea
+  function handleCreateNewCommentChange() {
+    setNewCommentText(event.target.value);
+    // pega o valor digitado na textara e armazena no estado
   }
 
   return(
@@ -58,20 +60,22 @@ export function Post({ author, publishedAt, content }) {
       <div className={styles.content}>
         {content.map(line =>  {
           if (line.type == 'paragraph') {
-            return <p>{line.content}</p>;
+            return <p key={line.content}>{line.content}</p>;
           } else if (line.type == 'link') {
-            return <p><a href='#'></a></p>;
+            return <p key={line.content}><a href='#'></a></p>;
           }
         })}
        
       </div>
 
-      <form onSubmit={handleCreateNewComent} className={styles.commentForm}>
+      <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
         <strong>Deixe seu Feedback</strong>
 
         <textarea 
           name='comment'
           placeholder='Deixe um comentário'
+          value={newCommentText}
+          onChange={handleCreateNewCommentChange}
         />
 
         <footer>
@@ -81,11 +85,10 @@ export function Post({ author, publishedAt, content }) {
 
       <div className={styles.commentList}>
         {comments.map(comment => {
-          return <Comment content={comment} />
-          // o comentário está sendo passado como uma propriedade chamada content (vai mandar o texto do cmentário para dentro da propriedade)
+          return <Comment key={comment} content={comment} />
+          // o comentário está sendo passado como uma propriedade chamada comment (vai mandar o texto do comentário para dentro da propriedade)
         })}
       </div>
     </article>
   )
 }
-
