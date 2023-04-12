@@ -4,13 +4,17 @@ import { Avatar } from './Avatar'
 import styles from './Comment.module.css'
 import { useState } from 'react'
 
-export function Comment({ content, onDeleteComment }){
+export function Comment({ content, onDeleteComment,}){
 
   const [likeCount, setLikeCount] = useState(0);
 
   function handleDeleteComment() {
     onDeleteComment(content);
   } // essa função faz a comunicação entre dois componentes (por meio da propriedade onDeleteComment)
+
+  function handleLikeComment() {
+    setLikeCount(likeCount + 1);
+  }
 
   return(
     <div className={styles.comment}>
@@ -23,7 +27,7 @@ export function Comment({ content, onDeleteComment }){
         <div className={styles.commentContent}>
           <header>
             <div className={styles.authorAndTime}>
-              <strong>Diego Fernandes</strong>
+              <strong>Florença Melo</strong>
              <time title='4 de abril de 2022 ' dateTime='2022-04-04 08:13'>Cerca de 2h atrás</time>
             </div>
 
@@ -39,7 +43,7 @@ export function Comment({ content, onDeleteComment }){
           <button onClick={handleLikeComment}> 
             Aplaudir 
             <ThumbsUp />
-           <span>20</span>
+           <span>{likeCount}</span>
           </button>
         </footer>
       </div>
