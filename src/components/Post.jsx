@@ -34,12 +34,17 @@ export function Post({ author, publishedAt, content }) {
 
     setComments([...comments, newCommentText]);
     // ... é um spread operator que lê o valor da variável e copia
-    setNewCommentText('')
+    setNewCommentText('');
   }
 
   function handleCreateNewCommentChange() {
+    event.target.setCustomValidity('');
     setNewCommentText(event.target.value);
-    // pega o valor digitado na textara e armazena no estado
+    // pega o valor digitado na textarea e armazena no estado
+  }
+
+  function handleNewCommentInvalid() {
+    event.target.setCustomValidity('Esse campo é obrigatório!');
   }
 
   function deleteComment(commmentToDelete) {
@@ -51,6 +56,8 @@ export function Post({ author, publishedAt, content }) {
 
     setComments(commentsWithoutDeletedOne);    
   }
+
+  const isNewCommentEmpty = newCommentText.length == 0;
 
   return(
     <article className={styles.post}>
@@ -86,10 +93,12 @@ export function Post({ author, publishedAt, content }) {
           placeholder='Deixe um comentário'
           value={newCommentText}
           onChange={handleCreateNewCommentChange}
+          required
+          onInvalid={handleNewCommentInvalid}
         />
 
         <footer>
-          <button type='submit'>Publicar</button>     
+          <button type='submit' disabled={isNewCommentEmpty}>Publicar</button>     
         </footer>
       </form>
 

@@ -2,13 +2,15 @@ import { Trash } from 'phosphor-react'
 import { ThumbsUp } from 'phosphor-react'
 import { Avatar } from './Avatar'
 import styles from './Comment.module.css'
+import { useState } from 'react'
 
 export function Comment({ content, onDeleteComment }){
 
+  const [likeCount, setLikeCount] = useState(0);
+
   function handleDeleteComment() {
     onDeleteComment(content);
-  }
-  // essa função faz a comunicação entre dois componentes (por meio da propriedade onDeleteComment)
+  } // essa função faz a comunicação entre dois componentes (por meio da propriedade onDeleteComment)
 
   return(
     <div className={styles.comment}>
@@ -34,7 +36,8 @@ export function Comment({ content, onDeleteComment }){
         </div>
 
         <footer>
-          <button> Aplaudir 
+          <button onClick={handleLikeComment}> 
+            Aplaudir 
             <ThumbsUp />
            <span>20</span>
           </button>
